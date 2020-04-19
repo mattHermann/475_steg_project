@@ -11,23 +11,20 @@ import math
 
 def otp_encrypt(plaintext_msg):
 	print(plaintext_msg)
-	alphabet = string.ascii_letters + string.digits + string.punctuation
+	alphabet = string.ascii_letters #string.digits + string.punctuation
 	key = ''.join(secrets.choice(alphabet) for i in range(len(plaintext_msg)))
-	print(len(key))
-	print(key)
+
 
 	encrypted_msg = ''
-	key_str = ''
 
 	for i in range(len(plaintext_msg)):
 		c_bit = ord(plaintext_msg[i]) ^ ord(key[i])
 		encrypted_msg += chr(c_bit)
-		key_str += chr(key[i])
 
-	print(key_str, "with length", len(encrypted_msg))
+	print(key, "with length", len(encrypted_msg))
 	print(encrypted_msg, "with length", len(encrypted_msg))
 
-	return encrypted_msg, key_str
+	return encrypted_msg, key
 
 def otp_decrypt(otp_msg, key):
 	decrypted_msg = ''
