@@ -14,8 +14,6 @@ def get_new_color(color, msg_bytes, bit_index, total_bits):
 	else:
 		return color, bit_index
 
-
-
 def encode(img):
 	plaintext_msg = input('>Please type the message your wish to enocde: ')
 
@@ -38,8 +36,6 @@ def encode(img):
 	stego_im = Image.new(img.mode, img.size)
 	stego_pixels = stego_im.load()
 
-	
-
 	for i in range(width):
 		for j in range(height):
 			r,g,b = pixel_arr[i,j]
@@ -50,21 +46,37 @@ def encode(img):
 
 			stego_pixels[i,j] = (new_r, new_g, new_b)
 	
-	stego_im.save('steg.jpg')
+	stego_im.save('steg.png')
+
+def get_LSB(color):
+	color_bin = bin(color)
+	return color_bin[-1]
 
 def decode(img):
 	width, height = img.size
 	pixel_arr = img.load()
 
+
+	msg_bits = ''
+
+	for i in range(width):
+		for j in range(height):
+			r,g,b = pixel_arr[i,j]
+			msg_bits += get_LSB(r)
+			msg_bits += get_LSB(g)
+			msg_bits += get_LSB(b)
+
+	print(msg_bits[:10])
+
 	#decoding data for binary string
 	decoded_str = ''
-	for i in range(0, len(msg_bytes), 7): 
-		split_bin_data = msg_bytes[i:i + 7] 
+	for i in range(0, len(msg_bits), 7): 
+		split_bin_data = msg_bits[i:i + 7] 
 		split_dec = int(split_bin_data, 2) 
 		decoded_str = decoded_str + chr(split_dec)  
 
 
-	print("decode")
+	print("The decoded string is:", decoded_str[:10])
 
 
 def main(argv):
