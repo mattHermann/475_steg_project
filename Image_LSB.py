@@ -10,7 +10,7 @@ import math
 
 
 def otp_encrypt(plaintext_msg):
-    print(plaintext_msg)
+    #print(plaintext_msg)
     alphabet = string.ascii_letters #string.digits + string.punctuation
     key = ''.join(secrets.choice(alphabet) for i in range(len(plaintext_msg)))
 
@@ -21,14 +21,13 @@ def otp_encrypt(plaintext_msg):
         c_bit = ord(plaintext_msg[i]) ^ ord(key[i])
         encrypted_msg += chr(c_bit)
 
-    print(key, "with length", len(encrypted_msg))
-    print(encrypted_msg, "with length", len(encrypted_msg))
+    #print(key, "with length", len(encrypted_msg))
+    #print(encrypted_msg, "with length", len(encrypted_msg))
 
     return encrypted_msg, key
 
 def otp_decrypt(otp_msg, key):
     decrypted_msg = ''
-
 
     for i in range(len(key)):
         c_bit = ord(otp_msg[i]) ^ ord(key[i])
@@ -58,9 +57,9 @@ def encode(img):
     otp_msg, key = otp_encrypt(plaintext_msg)
 
     msg_bits = ''.join(pad_zeros(format(ord(i), 'b')) for i in otp_msg)
-    print(msg_bits)
-    print(''.join(format(ord(i), 'b') for i in key))
-    print(''.join(format(ord(i), 'b') for i in plaintext_msg))
+    #print(msg_bits)
+    #print(''.join(format(ord(i), 'b') for i in key))
+    #print(''.join(format(ord(i), 'b') for i in plaintext_msg))
     
 
     bit_index = 0
@@ -89,7 +88,7 @@ def encode(img):
 
             stego_pixels[i,j] = (new_r, new_g, new_b)
     
-    #print("Success! The encryption key is:", key)
+    print("Success! The encryption key is:", key)
     stego_im.save('steg.png')
 
 def get_LSB(color):
@@ -116,11 +115,10 @@ def decode(img):
         split_dec = int(split_bin_data, 2)
         otp_str = otp_str + chr(split_dec)
 
-    #key = input(">Please enter the encryption key: ")
-    #decrypted_msg = otp_decrypt(otp_str, key)
+    key = input(">Please enter the encryption key: ")
+    decrypted_msg = otp_decrypt(otp_str, key)
 
-
-    print("The decoded string is:", otp_str[:10])
+    print("The decoded string is:", decrypted_msg)
 
 
 def main(argv):
