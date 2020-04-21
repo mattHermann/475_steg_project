@@ -4,9 +4,10 @@ This program encodes and decoedes ASCII messages into .png Images using Spatial 
 
 The encoding process first applies a One Time Pad (OTP) to the ASCII message and then encodes it using LSB into the input image. 
 The program then outputs the key for the OTP and the encoded image as the file <steg.png>.
-
+![](Image_Encoding.PNG)
 
 The decoding process asks for the OTP key and then outputs the decoded ASCII message to the terminal. 
+![](Image_Decoding.PNG)
 
 This repository also contains two sample test images.
 The image [steg.png]() has a hidden message encoded with the key:
