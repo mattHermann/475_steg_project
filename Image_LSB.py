@@ -10,8 +10,7 @@ import math
 
 
 def otp_encrypt(plaintext_msg):
-    #print(plaintext_msg)
-    alphabet = string.ascii_letters #string.digits + string.punctuation
+    alphabet = string.ascii_letters + string.digits + string.punctuation
     key = ''.join(secrets.choice(alphabet) for i in range(len(plaintext_msg)))
 
 
@@ -20,9 +19,6 @@ def otp_encrypt(plaintext_msg):
     for i in range(len(plaintext_msg)):
         c_bit = ord(plaintext_msg[i]) ^ ord(key[i])
         encrypted_msg += chr(c_bit)
-
-    #print(key, "with length", len(encrypted_msg))
-    #print(encrypted_msg, "with length", len(encrypted_msg))
 
     return encrypted_msg, key
 
@@ -57,10 +53,6 @@ def encode(img):
     otp_msg, key = otp_encrypt(plaintext_msg)
 
     msg_bits = ''.join(pad_zeros(format(ord(i), 'b')) for i in otp_msg)
-    #print(msg_bits)
-    #print(''.join(format(ord(i), 'b') for i in key))
-    #print(''.join(format(ord(i), 'b') for i in plaintext_msg))
-    
 
     bit_index = 0
     total_bits = len(msg_bits)
@@ -89,6 +81,7 @@ def encode(img):
             stego_pixels[i,j] = (new_r, new_g, new_b)
     
     print("Success! The encryption key is:", key)
+    print("The encoded image has beed saved to steg.png")
     stego_im.save('steg.png')
 
 def get_LSB(color):
@@ -131,14 +124,16 @@ def main(argv):
     input_file = sys.argv[1]
     img = Image.open(input_file, 'r')
 
-    mode_num = input('>Which Mode? 1) encode 2) decode: ')
-    if(mode_num == '1'):
-        encode(img)
-    elif(mode_num == '2'):
-        decode(img)
-    else:
-        print("Invalid Mode Number")
-        sys.exit(2)
+    while(True):
+	    mode_num = input('>Which Mode? 1) encode 2) decode: ')
+	    if(mode_num == '1'):
+	        encode(img)
+	        sys.exit()
+	    elif(mode_num == '2'):
+	        decode(img)
+	        sys.exit()
+	    else:
+	        print("Invalid Mode Number")
 
 if __name__=="__main__":
     main(sys.argv[1:])
