@@ -18,7 +18,7 @@ A?:=6mZ_%6Nv,Y]$fdhIEYg
 $python3 Image_LSB.py <input_image> 
 ```
 
-### To encode:
+### To Encode:
 ```console
 $python3 Image_LSB.py <image_to_encode> 
 >Which Mode? 1) encode 2) decode: 1
@@ -26,7 +26,7 @@ $python3 Image_LSB.py <image_to_encode>
 Success! The encryption key is: <YOUR_KEY>
 ```
 
-### To decode:
+### To Decode:
 ```console
 $python3 Image_LSB.py steg.png 
 >Which Mode? 1) encode 2) decode: 2
